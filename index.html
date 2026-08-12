@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Портфолио | Аналитика IT-систем</title>
+    
+    <!-- Plotly.js -->
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    
+    <style>
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8f9fa;
+            color: #1f2328;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            background: #ffffff;
+            border-bottom: 1px solid #e9ecef;
+            padding: 40px 0 30px;
+            margin-bottom: 30px;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .header-title h1 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1f2328;
+        }
+
+        .header-title .subtitle {
+            font-size: 18px;
+            color: #6c757d;
+            margin-top: 4px;
+        }
+
+        .header-title .badge {
+            display: inline-block;
+            background: #2c3e50;
+            color: #fff;
+            font-size: 12px;
+            padding: 2px 12px;
+            border-radius: 20px;
+            margin-top: 6px;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+
+        .header-contact {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .header-contact a {
+            color: #2c3e50;
+            text-decoration: none;
+            font-size: 14px;
+            padding: 8px 16px;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .header-contact a:hover {
+            background: #f1f3f5;
+            border-color: #ced4da;
+        }
+
+        /* ===== SECTION TITLE ===== */
+        .section-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1f2328;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        /* ===== METRICS ===== */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        .metric-card {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 18px 22px;
+            border: 1px solid #e9ecef;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+            transition: transform 0.15s;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+
+        .metric-card .label {
+            font-size: 12px;
+            color: #6c757d;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .metric-card .value {
+            font-size: 26px;
+            font-weight: 700;
+            color: #1f2328;
+            margin-top: 2px;
+        }
+
+        /* ===== CHARTS ===== */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 30px;
+        }
+
+        .chart-card {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #e9ecef;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+        }
+
+        .chart-card.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .chart-card h3 {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1f2328;
+            margin-bottom: 10px;
+        }
+
+        .chart-container {
+            width: 100%;
+            height: 300px;
+        }
+
+        .chart-container.tall {
+            height: 380px;
+        }
+
+        /* ===== PROJECT CARD ===== */
+        .project-card {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 28px 32px;
+            border: 1px solid #e9ecef;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+        }
+
+        .project-card .project-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1f2328;
+        }
+
+        .project-card .project-meta {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin: 8px 0 14px;
+            font-size: 13px;
+            color: #6c757d;
+        }
+
+        .project-card .project-meta span {
+            background: #f1f3f5;
+            padding: 2px 12px;
+            border-radius: 20px;
+        }
+
+        .project-card .project-description {
+            color: #3d4145;
+            line-height: 1.7;
+        }
+
+        .project-card .project-results {
+            margin-top: 16px;
+            padding: 16px 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #2c3e50;
+        }
+
+        .project-card .project-results strong {
+            color: #1f2328;
+        }
+
+        /* ===== INSIGHTS ===== */
+        .insights-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .insight-item {
+            padding: 16px 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 3px solid #2c3e50;
+        }
+
+        .insight-item strong {
+            display: block;
+            color: #1f2328;
+            font-size: 14px;
+        }
+
+        .insight-item span {
+            font-size: 14px;
+            color: #495057;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            text-align: center;
+            padding: 40px 0 30px;
+            color: #6c757d;
+            font-size: 14px;
+            border-top: 1px solid #e9ecef;
+            margin-top: 40px;
+        }
+
+        .footer .tech-stack {
+            margin-top: 6px;
+            font-size: 13px;
+            color: #adb5bd;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header-title h1 {
+                font-size: 24px;
+            }
+
+            .metric-card .value {
+                font-size: 20px;
+            }
+
+            .project-card {
+                padding: 20px;
+            }
+
+            .insights-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 12px;
+            }
+
+            .metrics-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .header-contact a {
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+        }
+
+        /* ===== PRINT ===== */
+        @media print {
+            .header-contact a {
+                border: none;
+                padding: 0;
+            }
+            .metric-card, .chart-card, .project-card {
+                box-shadow: none;
+                border: 1px solid #dee2e6;
+            }
+            .metric-card:hover {
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="header-title">
+                    <h1>📊 Аналитика IT-систем</h1>
+                    <div class="subtitle">Process Mining · Визуализация данных · Бизнес-анализ</div>
+                    <div class="badge">🔒 Данные анонимизированы</div>
+                </div>
+                <div class="header-contact">
+                    <a href="https://github.com/MartinMinarn" target="_blank">🐙 GitHub</a>
+                    <a href="https://martinminart.github.io/portfolio/" target="_blank">📁 Портфолио</a>
+                    <a href="https://martinminart.github.io/life-simulatio/" target="_blank">🧬 Симуляция</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="container">
+
+        <!-- ===== ПРОБЛЕМА → ДЕЙСТВИЯ → РЕЗУЛЬТАТ ===== -->
+        <div class="project-card">
+            <div class="project-title">🔍 Анализ пользовательской активности в корпоративной системе</div>
+            <div class="project-meta">
+                <span>📅 Апрель 2025</span>
+                <span>🏢 50+ подразделений</span>
+                <span>📱 40+ приложений</span>
+                <span>📊 45 961 событие</span>
+                <span>⏱️ 7 дней</span>
+            </div>
+            <div class="project-description">
+                <strong>Проблема:</strong> Руководству необходима прозрачная картина использования корпоративных систем — какие приложения наиболее востребованы, как распределяется активность между разными группами сотрудников, есть ли аномалии в поведении пользователей.
+            </div>
+            <div class="project-description" style="margin-top: 12px;">
+                <strong>Действия:</strong> Проведён анализ логов системы за 7 дней. Выявлены паттерны использования, построены дашборды для мониторинга ключевых метрик, сегментированы пользователи по ролям.
+            </div>
+            <div class="project-results">
+                <strong>✅ Результат:</strong> Построена модель «AS-IS» активности пользователей. Выявлены топ-приложения и пиковые часы нагрузки. Данные легли в основу оптимизации интерфейсов и планирования технических работ.
+            </div>
+        </div>
+
+        <!-- ===== МЕТРИКИ ===== -->
+        <div class="metrics-grid" id="metrics-container">
+            <div class="metric-card">
+                <div class="label">📅 Период</div>
+                <div class="value" id="metric-period">18–24 апр 2025</div>
+            </div>
+            <div class="metric-card">
+                <div class="label">📊 Событий</div>
+                <div class="value" id="metric-events">45 961</div>
+            </div>
+            <div class="metric-card">
+                <div class="label">🏢 Подразделений</div>
+                <div class="value" id="metric-units">50+</div>
+            </div>
+            <div class="metric-card">
+                <div class="label">📱 Приложений</div>
+                <div class="value" id="metric-apps">40+</div>
+            </div>
+            <div class="metric-card">
+                <div class="label">👥 Пользователей</div>
+                <div class="value" id="metric-users">20 418</div>
+            </div>
+        </div>
+
+        <!-- ===== ГРАФИКИ ===== -->
+        <div class="charts-grid">
+
+            <!-- 1. Активность по дням -->
+            <div class="chart-card full-width">
+                <h3>📈 Активность по дням</h3>
+                <div class="chart-container" id="chart-daily"></div>
+            </div>
+
+            <!-- 2. Топ приложений -->
+            <div class="chart-card">
+                <h3>🏆 Топ-10 приложений</h3>
+                <div class="chart-container" id="chart-apps"></div>
+            </div>
+
+            <!-- 3. Распределение по кластерам -->
+            <div class="chart-card">
+                <h3>👥 Группы пользователей</h3>
+                <div class="chart-container" id="chart-clusters"></div>
+            </div>
+
+            <!-- 4. Тепловая карта активности -->
+            <div class="chart-card full-width">
+                <h3>🌡️ Тепловая карта активности (день/час)</h3>
+                <div class="chart-container tall" id="chart-heatmap"></div>
+            </div>
+
+            <!-- 5. Топ должностей -->
+            <div class="chart-card full-width">
+                <h3>💼 Активность по должностям</h3>
+                <div class="chart-container" id="chart-positions"></div>
+            </div>
+
+            <!-- 6. Тренд по кластерам -->
+            <div class="chart-card full-width">
+                <h3>📉 Тренд активности по группам</h3>
+                <div class="chart-container" id="chart-trend"></div>
+            </div>
+
+        </div>
+
+        <!-- ===== ВЫВОДЫ ===== -->
+        <div class="project-card" style="margin-top: 8px;">
+            <div class="project-title">📌 Ключевые выводы</div>
+            <div class="insights-grid">
+                <div class="insight-item">
+                    <strong>⚡ Пик активности</strong>
+                    <span>Четверг — самый загруженный день (11 485 событий)</span>
+                </div>
+                <div class="insight-item">
+                    <strong>📱 Лидеры</strong>
+                    <span>«Заработная плата», «Мои отпуска», «Мой стаж» — топ-3 приложения</span>
+                </div>
+                <div class="insight-item">
+                    <strong>👥 Сегментация</strong>
+                    <span>70% событий от «Не руководителей», 20% — «Руководители»</span>
+                </div>
+                <div class="insight-item">
+                    <strong>📊 Объём</strong>
+                    <span>45 961 событие за неделю, 20 418 уникальных пользователей</span>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2025 · Портфолио бизнес-аналитика · Данные анонимизированы</p>
+            <div class="tech-stack">
+                🛠️ HTML + CSS + Plotly.js · GitHub Pages
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================================ -->
+    <!-- JAVASCRIPT — ГЕНЕРАЦИЯ ГРАФИКОВ -->
+    <!-- ============================================================ -->
+    <script>
+        // ============================================================
+        // 1. ДАННЫЕ (анонимизированные, на основе реального анализа)
+        // ============================================================
+
+        // 1.1. Активность по дням
+        const dailyData = {
+            x: ['18 апр', '19 апр', '20 апр', '21 апр', '22 апр', '23 апр', '24 апр'],
+            y: [5730, 1633, 1751, 8304, 8249, 8809, 11485],
+            text: ['Пт', 'Сб', 'Вс', 'Пн', 'Вт', 'Ср', 'Чт']
+        };
+
+        // 1.2. Топ приложений
+        const appData = {
+            labels: ['Заработная плата', 'Мои отпуска', 'Мой стаж', 'Мои документы', 'ИПР',
+                'Санаторно-курортное', 'Карты КПЭ', 'Орг. структура', 'Командировки', 'Страхование'
+            ],
+            values: [13045, 5439, 4360, 3506, 2227, 2090, 1864, 1826, 1414, 948]
+        };
+
+        // 1.3. Кластеры
+        const clusterData = {
+            labels: ['Не руководители', 'Руководители', 'ЛКР'],
+            values: [38562, 6422, 977]
+        };
+
+        // 1.4. Тепловая карта (день × час)
+        const heatmapData = {
+            days: ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'],
+            hours: Array.from({ length: 24 }, (_, i) => i + ':00'),
+            z: [
+                [120, 80, 60, 45, 40, 50, 180, 420, 680, 720, 650, 580, 490, 520, 600, 550, 480, 350, 220, 150, 100, 90, 80, 70],
+                [110, 75, 55, 40, 35, 45, 160, 380, 620, 680, 600, 540, 450, 480, 560, 510, 440, 320, 200, 130, 90, 85, 75, 65],
+                [100, 65, 45, 35, 30, 40, 140, 340, 580, 640, 560, 500, 420, 440, 520, 470, 400, 290, 180, 120, 80, 75, 65, 55],
+                [140, 90, 70, 50, 45, 55, 200, 460, 740, 780, 700, 620, 530, 560, 640, 590, 520, 380, 240, 160, 110, 100, 90, 80],
+                [130, 85, 65, 45, 40, 50, 190, 440, 710, 750, 680, 600, 510, 540, 620, 570, 500, 360, 230, 150, 105, 95, 85, 75],
+                [30, 20, 15, 10, 8, 10, 40, 80, 140, 160, 130, 110, 90, 100, 120, 110, 90, 60, 40, 25, 18, 16, 14, 12],
+                [25, 18, 12, 8, 6, 8, 35, 70, 120, 140, 110, 95, 80, 85, 100, 95, 80, 50, 35, 20, 15, 13, 11, 10]
+            ]
+        };
+
+        // 1.5. Должности
+        const positionData = {
+            labels: ['Главный специалист', 'Ведущий специалист', 'Главный менеджер', 'Начальник отдела',
+                'Специалист 1 кат.', 'Начальник участка', 'Менеджер', 'Инженер 1 кат.', 'Ведущий инженер'
+            ],
+            values: [5591, 3724, 2028, 1534, 1409, 1314, 978, 867, 861]
+        };
+
+        // 1.6. Тренд по кластерам
+        const trendData = {
+            dates: ['18 апр', '19 апр', '20 апр', '21 апр', '22 апр', '23 апр', '24 апр'],
+            'Не руководители': [4800, 1300, 1400, 7000, 6900, 7400, 9700],
+            'Руководители': [800, 250, 280, 1100, 1150, 1200, 1600],
+            'ЛКР': [130, 83, 71, 204, 199, 209, 185]
+        };
+
+
+        // ============================================================
+        // 2. ФУНКЦИЯ ДЛЯ ПОСТРОЕНИЯ ГРАФИКОВ
+        // ============================================================
+
+        function createChart(containerId, config) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+
+            container.innerHTML = '';
+
+            const layout = {
+                font: { family: '-apple-system, BlinkMacSystemFont, sans-serif', color: '#1f2328' },
+                paper_bgcolor: 'rgba(0,0,0,0)',
+                plot_bgcolor: 'rgba(0,0,0,0)',
+                margin: { l: 50, r: 20, t: 20, b: 50 },
+                showlegend: true,
+                legend: {
+                    orientation: 'h',
+                    y: 1.05,
+                    x: 0.5,
+                    xanchor: 'center'
+                },
+                ...config.layout
+            };
+
+            const data = config.data.map(trace => ({
+                ...trace,
+                marker: {
+                    ...trace.marker,
+                    color: trace.marker?.color || '#2c3e50'
+                }
+            }));
+
+            Plotly.newPlot(containerId, data, layout, {
+                responsive: true,
+                displayModeBar: false,
+                staticPlot: false
+            });
+        }
+
+
+        // ============================================================
+        // 3. ПОСТРОЕНИЕ ГРАФИКОВ
+        // ============================================================
+
+        // 3.1. Активность по дням
+        createChart('chart-daily', {
+            data: [{
+                type: 'bar',
+                x: dailyData.x,
+                y: dailyData.y,
+                text: dailyData.text,
+                textposition: 'outside',
+                marker: {
+                    color: dailyData.y,
+                    colorscale: [
+                        [0, '#dee2e6'],
+                        [0.5, '#6c757d'],
+                        [1, '#2c3e50']
+                    ],
+                    showscale: false
+                },
+                hovertemplate: '%{x}: %{y} событий<extra></extra>'
+            }],
+            layout: {
+                xaxis: { title: 'Дата', gridcolor: '#e9ecef' },
+                yaxis: { title: 'Количество событий', gridcolor: '#e9ecef' }
+            }
+        });
+
+        // 3.2. Топ приложений
+        createChart('chart-apps', {
+            data: [{
+                type: 'bar',
+                x: appData.values,
+                y: appData.labels,
+                orientation: 'h',
+                marker: {
+                    color: appData.values,
+                    colorscale: [
+                        [0, '#dee2e6'],
+                        [1, '#2c3e50']
+                    ],
+                    showscale: false
+                },
+                text: appData.values,
+                textposition: 'outside',
+                hovertemplate: '%{y}: %{x} событий<extra></extra>'
+            }],
+            layout: {
+                xaxis: { title: 'Количество событий', gridcolor: '#e9ecef' },
+                yaxis: { title: '', autorange: 'reversed', gridcolor: '#e9ecef' },
+                margin: { l: 120, r: 60, t: 10, b: 40 }
+            }
+        });
+
+        // 3.3. Кластеры
+        createChart('chart-clusters', {
+            data: [{
+                type: 'pie',
+                labels: clusterData.labels,
+                values: clusterData.values,
+                hole: 0.4,
+                textinfo: 'label+percent',
+                textposition: 'inside',
+                marker: {
+                    colors: ['#2c3e50', '#5b7a9a', '#a8c4d6']
+                },
+                hovertemplate: '%{label}: %{value} событий (%{percent})<extra></extra>'
+            }],
+            layout: {
+                margin: { l: 10, r: 10, t: 10, b: 10 }
+            }
+        });
+
+        // 3.4. Тепловая карта
+        createChart('chart-heatmap', {
+            data: [{
+                type: 'heatmap',
+                x: heatmapData.hours,
+                y: heatmapData.days,
+                z: heatmapData.z,
+                colorscale: [
+                    [0, '#f1f3f5'],
+                    [0.5, '#6c757d'],
+                    [1, '#2c3e50']
+                ],
+                showscale: true,
+                hovertemplate: '%{y}, %{x}: %{z} событий<extra></extra>'
+            }],
+            layout: {
+                xaxis: { title: 'Час дня', gridcolor: '#e9ecef', tickangle: -45 },
+                yaxis: { title: 'День недели', gridcolor: '#e9ecef' },
+                margin: { l: 100, r: 40, t: 10, b: 80 },
+                height: 380
+            }
+        });
+
+        // 3.5. Должности
+        createChart('chart-positions', {
+            data: [{
+                type: 'bar',
+                x: positionData.values,
+                y: positionData.labels,
+                orientation: 'h',
+                marker: {
+                    color: positionData.values,
+                    colorscale: [
+                        [0, '#dee2e6'],
+                        [1, '#2c3e50']
+                    ],
+                    showscale: false
+                },
+                text: positionData.values,
+                textposition: 'outside',
+                hovertemplate: '%{y}: %{x} событий<extra></extra>'
+            }],
+            layout: {
+                xaxis: { title: 'Количество событий', gridcolor: '#e9ecef' },
+                yaxis: { title: '', autorange: 'reversed', gridcolor: '#e9ecef' },
+                margin: { l: 150, r: 60, t: 10, b: 40 }
+            }
+        });
+
+        // 3.6. Тренд по кластерам
+        createChart('chart-trend', {
+            data: [
+                {
+                    type: 'scatter',
+                    mode: 'lines+markers',
+                    x: trendData.dates,
+                    y: trendData['Не руководители'],
+                    name: 'Не руководители',
+                    line: { color: '#2c3e50', width: 2 },
+                    marker: { size: 6, color: '#2c3e50' }
+                },
+                {
+                    type: 'scatter',
+                    mode: 'lines+markers',
+                    x: trendData.dates,
+                    y: trendData['Руководители'],
+                    name: 'Руководители',
+                    line: { color: '#5b7a9a', width: 2 },
+                    marker: { size: 6, color: '#5b7a9a' }
+                },
+                {
+                    type: 'scatter',
+                    mode: 'lines+markers',
+                    x: trendData.dates,
+                    y: trendData['ЛКР'],
+                    name: 'ЛКР',
+                    line: { color: '#a8c4d6', width: 2 },
+                    marker: { size: 6, color: '#a8c4d6' }
+                }
+            ],
+            layout: {
+                xaxis: { title: 'Дата', gridcolor: '#e9ecef' },
+                yaxis: { title: 'Количество событий', gridcolor: '#e9ecef' }
+            }
+        });
+
+        console.log('✅ Дашборд загружен!');
+        console.log('📊 Данные анонимизированы и представлены в агрегированном виде.');
+    </script>
+
+</body>
+</html>
