@@ -1,10 +1,28 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>Аналитика IT-систем | Дашборд</title>
-    
+    <title>Аналитика IT-систем | Портфолио Артура Минина</title>
+    <meta name="description" content="Интерактивный дашборд анализа пользовательской активности ИТ-систем: Python, Pandas, HTML, CSS, JavaScript и Plotly.js.">
+    <meta name="theme-color" content="#2f855a">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Аналитика IT-систем | Портфолио Артура Минина">
+    <meta property="og:description" content="Интерактивный дашборд анализа пользовательской активности ИТ-систем на основе обезличенной агрегированной выборки.">
+    <meta property="og:url" content="https://martinminart.github.io/portfolio_ayditIS/">
+    <meta property="og:site_name" content="Портфолио Артура Минина">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Аналитика IT-систем | Портфолио Артура Минина">
+    <meta name="twitter:description" content="Интерактивный аналитический дашборд на Python, Pandas и Plotly.js.">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" href="favicon.svg">
+
     <!-- Plotly.js -->
     <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
     
@@ -16,12 +34,102 @@
             box-sizing: border-box;
         }
 
+        /* ===== CSS VARIABLES ===== */
+        :root {
+            --bg-page: #f5f7fa;
+            --bg-surface: #ffffff;
+            --bg-surface-soft: #f8f9fa;
+            --bg-header: linear-gradient(135deg, #1a2332 0%, #2c3e50 100%);
+
+            --text-primary: #1a2332;
+            --text-secondary: #3d4145;
+            --text-muted: #6c757d;
+            --text-muted-alt: #868e96;
+            --text-faint: #adb5bd;
+            --text-inverse: #ffffff;
+
+            --border-color: #e9ecef;
+            --border-subtle: rgba(255,255,255,0.15);
+            --shadow-color: rgba(0,0,0,0.04);
+            --shadow-hover: rgba(0,0,0,0.08);
+
+            --accent-color: #4a90d9;
+            --accent-hover: #3a7bc8;
+            --accent-active: #2c6ab5;
+            --accent-text: #ffffff;
+            --accent-soft: rgba(74,144,217,0.15);
+
+            --button-secondary-bg: #f1f3f5;
+            --button-secondary-hover: #e9ecef;
+            --button-secondary-text: #495057;
+
+            --input-bg: #f8f9fa;
+            --input-text: #1a2332;
+            --input-border: #e9ecef;
+            --input-focus: rgba(74,144,217,0.15);
+
+            --hint-bg: #f8f9fa;
+            --hint-text: #6c757d;
+            --hint-text-secondary: #868e96;
+
+            --link-color: #a8c4d6;
+            --link-hover: #ffffff;
+
+            --tag-bg: #f1f3f5;
+
+            --transition-colors: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        html[data-theme="dark"] {
+            --bg-page: #161922;
+            --bg-surface: #1e2230;
+            --bg-surface-soft: #252a38;
+            --bg-header: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
+
+            --text-primary: #e2e8f0;
+            --text-secondary: #b0b8c8;
+            --text-muted: #8892a4;
+            --text-muted-alt: #6b7588;
+            --text-faint: #5a6478;
+            --text-inverse: #ffffff;
+
+            --border-color: #2d3348;
+            --border-subtle: rgba(255,255,255,0.1);
+            --shadow-color: rgba(0,0,0,0.2);
+            --shadow-hover: rgba(0,0,0,0.35);
+
+            --accent-color: #5ba0e6;
+            --accent-hover: #7bb3ed;
+            --accent-active: #4a90d9;
+            --accent-text: #ffffff;
+            --accent-soft: rgba(91,160,230,0.15);
+
+            --button-secondary-bg: #2d3348;
+            --button-secondary-hover: #3d4460;
+            --button-secondary-text: #b0b8c8;
+
+            --input-bg: #252a38;
+            --input-text: #e2e8f0;
+            --input-border: #2d3348;
+            --input-focus: rgba(91,160,230,0.25);
+
+            --hint-bg: #252a38;
+            --hint-text: #8892a4;
+            --hint-text-secondary: #6b7588;
+
+            --link-color: #8892a4;
+            --link-hover: #e2e8f0;
+
+            --tag-bg: #2d3348;
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #f5f7fa;
-            color: #1a2332;
+            background: var(--bg-page);
+            color: var(--text-primary);
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
+            transition: background-color 0.2s ease, color 0.2s ease;
         }
 
         .container {
@@ -32,11 +140,12 @@
 
         /* ===== HEADER ===== */
         .header {
-            background: linear-gradient(135deg, #1a2332 0%, #2c3e50 100%);
-            color: #ffffff;
+            background: var(--bg-header);
+            color: var(--text-inverse);
             padding: 24px 0 20px;
             margin-bottom: 24px;
-            border-bottom: 3px solid #4a90d9;
+            border-bottom: 3px solid var(--accent-color);
+            transition: var(--transition-colors);
         }
 
         .header-content {
@@ -55,20 +164,22 @@
 
         .header-title .subtitle {
             font-size: clamp(13px, 1.5vw, 17px);
-            color: #a8c4d6;
+            color: var(--link-color);
             margin-top: 2px;
+            transition: color 0.2s ease;
         }
 
         .header-title .badge {
             display: inline-block;
-            background: #4a90d9;
-            color: #fff;
+            background: var(--accent-color);
+            color: var(--accent-text);
             font-size: 11px;
             padding: 2px 14px;
             border-radius: 20px;
             margin-top: 4px;
             font-weight: 500;
             letter-spacing: 0.3px;
+            transition: var(--transition-colors);
         }
 
         .header-contact {
@@ -78,19 +189,47 @@
         }
 
         .header-contact a {
-            color: #a8c4d6;
+            color: var(--link-color);
             text-decoration: none;
             font-size: 13px;
             padding: 6px 14px;
-            border: 1px solid rgba(255,255,255,0.15);
+            border: 1px solid var(--border-subtle);
             border-radius: 8px;
-            transition: all 0.2s;
+            transition: var(--transition-colors);
         }
 
         .header-contact a:hover {
             background: rgba(255,255,255,0.08);
             border-color: rgba(255,255,255,0.3);
-            color: #fff;
+            color: var(--link-hover);
+        }
+
+        .theme-toggle {
+            background: transparent;
+            color: var(--link-color);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 6px 14px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: var(--transition-colors);
+            min-width: 36px;
+            min-height: 36px;
+            line-height: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(255,255,255,0.3);
+            color: var(--link-hover);
+        }
+
+        .theme-toggle:focus-visible {
+            outline: 2px solid var(--accent-color);
+            outline-offset: 2px;
         }
 
         /* ===== FILTERS ===== */
@@ -98,44 +237,117 @@
             display: flex;
             flex-wrap: wrap;
             gap: 12px;
-            background: #ffffff;
+            background: var(--bg-surface);
             padding: 16px 20px;
             border-radius: 12px;
             margin-bottom: 24px;
-            border: 1px solid #e9ecef;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-            align-items: center;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 1px 3px var(--shadow-color);
+            align-items: flex-end;
+            transition: var(--transition-colors);
         }
 
         .filters-bar label {
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 600;
-            color: #2c3e50;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+            display: block;
+            white-space: nowrap;
+            transition: color 0.2s ease;
         }
 
-        .filters-bar select,
-        .filters-bar input {
-            padding: 6px 12px;
-            border: 1px solid #e9ecef;
+        .filters-bar select {
+            padding: 8px 12px;
+            border: 1px solid var(--input-border);
             border-radius: 6px;
             font-size: 13px;
-            background: #f8f9fa;
-            color: #1a2332;
-            min-width: 120px;
+            background: var(--input-bg);
+            color: var(--input-text);
+            min-width: 140px;
+            max-width: 220px;
+            height: 38px;
+            cursor: pointer;
+            transition: var(--transition-colors);
         }
 
-        .filters-bar select:focus,
-        .filters-bar input:focus {
+        .filters-bar select:focus {
             outline: none;
-            border-color: #4a90d9;
-            box-shadow: 0 0 0 3px rgba(74, 144, 217, 0.15);
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px var(--input-focus);
         }
 
         .filters-bar .filter-group {
             display: flex;
-            align-items: center;
-            gap: 6px;
-            flex-wrap: wrap;
+            flex-direction: column;
+            gap: 4px;
+            flex-shrink: 0;
+        }
+
+        .filters-bar .filter-actions {
+            display: flex;
+            gap: 8px;
+            margin-left: auto;
+            align-items: flex-end;
+        }
+
+        .filters-bar .btn-apply,
+        .filters-bar .btn-reset {
+            padding: 8px 18px;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            height: 38px;
+            transition: var(--transition-colors);
+            white-space: nowrap;
+        }
+
+        .filters-bar .btn-apply {
+            background: var(--accent-color);
+            color: var(--accent-text);
+        }
+
+        .filters-bar .btn-apply:hover {
+            background: var(--accent-hover);
+        }
+
+        .filters-bar .btn-apply:active {
+            background: var(--accent-active);
+        }
+
+        .filters-bar .btn-reset {
+            background: var(--button-secondary-bg);
+            color: var(--button-secondary-text);
+            border: 1px solid var(--border-color);
+        }
+
+        .filters-bar .btn-reset:hover {
+            background: var(--button-secondary-hover);
+            color: var(--text-primary);
+        }
+
+        .filter-hint {
+            width: 100%;
+            margin-top: 8px;
+            padding: 10px 12px;
+            background: var(--hint-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 12px;
+            color: var(--hint-text);
+            line-height: 1.5;
+            transition: var(--transition-colors);
+        }
+
+        .filter-hint .hint-secondary {
+            display: block;
+            margin-top: 4px;
+            font-size: 11px;
+            color: var(--hint-text-secondary);
+            line-height: 1.4;
+            transition: color 0.2s ease;
         }
 
         /* ===== METRICS ===== */
@@ -147,32 +359,34 @@
         }
 
         .metric-card {
-            background: #ffffff;
+            background: var(--bg-surface);
             border-radius: 12px;
             padding: 14px 18px;
-            border: 1px solid #e9ecef;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-            transition: transform 0.15s;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 1px 3px var(--shadow-color);
+            transition: transform 0.15s, background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
             text-align: center;
         }
 
         .metric-card:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 12px var(--shadow-hover);
         }
 
         .metric-card .label {
             font-size: 11px;
-            color: #6c757d;
+            color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            transition: color 0.2s ease;
         }
 
         .metric-card .value {
             font-size: clamp(20px, 3vw, 28px);
             font-weight: 700;
-            color: #1a2332;
+            color: var(--text-primary);
             margin-top: 2px;
+            transition: color 0.2s ease;
         }
 
         .metric-card .trend {
@@ -194,11 +408,30 @@
         }
 
         .chart-card {
-            background: #ffffff;
+            background: var(--bg-surface);
             border-radius: 12px;
             padding: 16px;
-            border: 1px solid #e9ecef;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 1px 3px var(--shadow-color);
+            transition: var(--transition-colors);
+        }
+
+        .chart-card.rankings-card {
+            padding: 22px;
+            min-height: 460px;
+        }
+
+        .chart-card.rankings-card h3 {
+            margin-bottom: 14px;
+        }
+
+        .chart-card.clusters-card {
+            padding: 22px;
+            min-height: 380px;
+        }
+
+        .chart-card.clusters-card h3 {
+            margin-bottom: 14px;
         }
 
         .chart-card.full-width {
@@ -208,20 +441,22 @@
         .chart-card h3 {
             font-size: 14px;
             font-weight: 600;
-            color: #1a2332;
+            color: var(--text-primary);
             margin-bottom: 8px;
             display: flex;
             align-items: center;
             gap: 8px;
+            transition: color 0.2s ease;
         }
 
         .chart-card h3 .info-badge {
             font-size: 11px;
             font-weight: 400;
-            color: #6c757d;
-            background: #f1f3f5;
+            color: var(--text-muted);
+            background: var(--tag-bg);
             padding: 0 10px;
             border-radius: 12px;
+            transition: var(--transition-colors);
         }
 
         .chart-container {
@@ -233,20 +468,30 @@
             height: 340px;
         }
 
+        .chart-container.rankings-chart {
+            height: 390px;
+        }
+
+        .chart-container.clusters-chart {
+            height: 330px;
+        }
+
         /* ===== PROJECT CARD ===== */
         .project-card {
-            background: #ffffff;
+            background: var(--bg-surface);
             border-radius: 12px;
             padding: 20px 24px;
-            border: 1px solid #e9ecef;
+            border: 1px solid var(--border-color);
             margin-bottom: 24px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+            box-shadow: 0 1px 3px var(--shadow-color);
+            transition: var(--transition-colors);
         }
 
         .project-card .project-title {
             font-size: clamp(18px, 2.5vw, 22px);
             font-weight: 600;
-            color: #1a2332;
+            color: var(--text-primary);
+            transition: color 0.2s ease;
         }
 
         .project-card .project-meta {
@@ -255,79 +500,97 @@
             flex-wrap: wrap;
             margin: 6px 0 12px;
             font-size: 13px;
-            color: #6c757d;
+            color: var(--text-muted);
+            transition: color 0.2s ease;
         }
 
         .project-card .project-meta span {
-            background: #f1f3f5;
+            background: var(--tag-bg);
             padding: 2px 12px;
             border-radius: 20px;
+            transition: var(--transition-colors);
         }
 
         .project-card .project-description {
-            color: #3d4145;
+            color: var(--text-secondary);
             line-height: 1.7;
             font-size: 15px;
+            transition: color 0.2s ease;
         }
 
         .project-card .project-results {
             margin-top: 14px;
             padding: 14px 18px;
-            background: #f8f9fa;
+            background: var(--bg-surface-soft);
             border-radius: 8px;
-            border-left: 4px solid #4a90d9;
+            border-left: 4px solid var(--accent-color);
+            transition: var(--transition-colors);
         }
 
         .project-card .project-results strong {
-            color: #1a2332;
+            color: var(--text-primary);
+            transition: color 0.2s ease;
         }
 
         /* ===== INSIGHTS ===== */
         .insights-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 12px;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
             margin-top: 14px;
         }
 
         .insight-item {
-            padding: 14px 16px;
-            background: #f8f9fa;
+            padding: 18px 20px;
+            background: var(--bg-surface-soft);
             border-radius: 8px;
-            border-left: 3px solid #4a90d9;
+            border-left: 3px solid var(--accent-color);
+            overflow-wrap: break-word;
+            transition: var(--transition-colors);
         }
 
         .insight-item strong {
             display: block;
-            color: #1a2332;
+            color: var(--text-primary);
             font-size: 14px;
+            line-height: 1.4;
+            margin-bottom: 4px;
+            transition: color 0.2s ease;
         }
 
         .insight-item span {
             font-size: 13px;
-            color: #495057;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            transition: color 0.2s ease;
         }
 
         /* ===== FOOTER ===== */
         .footer {
             text-align: center;
             padding: 30px 0 24px;
-            color: #6c757d;
+            color: var(--text-muted);
             font-size: 13px;
-            border-top: 1px solid #e9ecef;
+            border-top: 1px solid var(--border-color);
             margin-top: 32px;
+            transition: var(--transition-colors);
         }
 
         .footer .tech-stack {
             margin-top: 4px;
             font-size: 12px;
-            color: #adb5bd;
+            color: var(--text-faint);
+            transition: color 0.2s ease;
         }
 
         /* ===== RESPONSIVE ===== */
         @media (max-width: 1024px) {
             .charts-grid {
                 grid-template-columns: 1fr 1fr;
+            }
+
+            .insights-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
             }
         }
 
@@ -355,10 +618,26 @@
                 width: 100%;
             }
 
-            .filters-bar select,
-            .filters-bar input {
-                flex: 1;
+            .filters-bar select {
+                width: 100%;
                 min-width: 0;
+                max-width: none;
+            }
+
+            .filters-bar .filter-actions {
+                width: 100%;
+                margin-left: 0;
+                justify-content: stretch;
+            }
+
+            .filters-bar .btn-apply,
+            .filters-bar .btn-reset {
+                flex: 1;
+                text-align: center;
+            }
+
+            .filter-hint {
+                width: 100%;
             }
 
             .metric-card .value {
@@ -371,6 +650,14 @@
 
             .insights-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .chart-container.rankings-chart {
+                height: 410px;
+            }
+
+            .chart-container.clusters-chart {
+                height: 350px;
             }
         }
 
@@ -398,6 +685,14 @@
 
             .chart-container.tall {
                 height: 260px;
+            }
+
+            .chart-container.rankings-chart {
+                height: 400px;
+            }
+
+            .chart-container.clusters-chart {
+                height: 330px;
             }
 
             .header-title h1 {
@@ -439,10 +734,18 @@
                 <div class="header-title">
                     <h1>📊 Аналитика IT-систем</h1>
                     <div class="subtitle">Process Mining · Визуализация данных · Бизнес-анализ</div>
-                    <div class="badge">🔒 Данные анонимизированы</div>
+                    <div class="badge">🔒 Идентификаторы заменены на обобщённые</div>
                 </div>
                 <div class="header-contact">
                     <a href="https://github.com/MartinMinart" target="_blank">🐙 GitHub</a>
+                    <button
+                      id="themeToggle"
+                      type="button"
+                      class="theme-toggle"
+                      aria-label="Переключить на тёмную тему"
+                      title="Переключить на тёмную тему">
+                      🌙
+                    </button>
                     <a href="#" onclick="location.reload(); return false;">🔄 Обновить</a>
                 </div>
             </div>
@@ -456,57 +759,79 @@
         <div class="filters-bar" id="filtersBar">
             <div class="filter-group">
                 <label for="filterApp">📱 Приложение:</label>
-                <select id="filterApp">
+                <select id="filterApp" aria-label="Фильтр по приложению">
                     <option value="all">Все</option>
-                    <option value="Заработная плата">Заработная плата</option>
-                    <option value="Мои отпуска">Мои отпуска</option>
-                    <option value="Мой стаж">Мой стаж</option>
-                    <option value="ИПР">ИПР</option>
-                    <option value="Командировки">Командировки</option>
+                    <option value="payroll">Заработная плата</option>
+                    <option value="vacations">Мои отпуска</option>
+                    <option value="seniority">Мой стаж</option>
+                    <option value="documents">Мои документы</option>
+                    <option value="ipr">ИПР</option>
+                    <option value="sanatorium">Санаторно-курортное</option>
+                    <option value="kpi_cards">Карты КПЭ</option>
+                    <option value="org_structure">Орг. структура</option>
+                    <option value="trips">Командировки</option>
+                    <option value="insurance">Страхование</option>
                 </select>
             </div>
             <div class="filter-group">
                 <label for="filterCluster">👥 Группа:</label>
-                <select id="filterCluster">
+                <select id="filterCluster" aria-label="Фильтр по группе пользователей">
                     <option value="all">Все</option>
-                    <option value="Не руководители">Не руководители</option>
-                    <option value="Руководители">Руководители</option>
-                    <option value="ЛКР">ЛКР</option>
+                    <option value="non_managers">Не руководители</option>
+                    <option value="managers">Руководители</option>
+                    <option value="lkr">ЛКР</option>
                 </select>
             </div>
             <div class="filter-group">
-                <label for="filterUnit">🏢 БЕ:</label>
-                <select id="filterUnit">
+                <label for="filterUnit">🏢 Бизнес-контур:</label>
+                <select id="filterUnit" aria-label="Фильтр по бизнес-контуру">
                     <option value="all">Все</option>
-                    <option value="БЕ_1">БЕ_1</option>
-                    <option value="БЕ_2">БЕ_2</option>
-                    <option value="БЕ_3">БЕ_3</option>
-                    <option value="БЕ_4">БЕ_4</option>
+                    <option value="production">Производственный контур</option>
+                    <option value="finance">Финансовый контур</option>
+                    <option value="corporate_services">Корпоративные сервисы</option>
+                    <option value="it_infrastructure">ИТ-инфраструктура</option>
+                    <option value="operations">Центр эксплуатации</option>
+                    <option value="projects">Управление проектами</option>
+                    <option value="support">Служба поддержки</option>
+                    <option value="commercial">Коммерческий контур</option>
+                    <option value="logistics">Логистический контур</option>
+                    <option value="admin">Административный контур</option>
                 </select>
             </div>
-            <div style="margin-left: auto;">
-                <button onclick="applyFilters()" style="padding: 6px 20px; background: #4a90d9; color: #fff; border: none; border-radius: 6px; cursor: pointer; font-size: 13px;">Применить</button>
+            <div class="filter-actions">
+                <button type="button" id="btnApply" class="btn-apply" onclick="applyFilters()">Применить</button>
+                <button type="button" id="btnReset" class="btn-reset" onclick="resetFilters()">Сбросить</button>
             </div>
+            <div class="filter-hint" id="filterHint">Демонстрационный режим: фильтры показывают сценарий анализа; графики отражают общую агрегированную выборку.<span class="hint-secondary">Для кросс-фильтрации по комбинациям параметров требуется исходный событийный набор или подготовленные многомерные агрегаты.</span></div>
         </div>
 
         <!-- ===== ПРОБЛЕМА → ДЕЙСТВИЯ → РЕЗУЛЬТАТ ===== -->
         <div class="project-card">
-            <div class="project-title">🔍 Анализ пользовательской активности</div>
+            <div class="project-title">🔍 Анализ пользовательской активности ИТ-систем</div>
             <div class="project-meta">
                 <span>📅 Апрель 2025</span>
-                <span>🏢 50+ подразделений</span>
-                <span>📱 40+ приложений</span>
+                <span>🏢 10 бизнес-контуров</span>
+                <span>📱 10 приложений</span>
                 <span>📊 45 961 событие</span>
                 <span>⏱️ 7 дней</span>
             </div>
             <div class="project-description">
-                <strong>Проблема:</strong> Руководству необходима прозрачная картина использования корпоративных систем — какие приложения наиболее востребованы, как распределяется активность между разными группами сотрудников, есть ли аномалии в поведении пользователей.
+                <strong>Задача проекта:</strong> показать распределение активности пользователей в ИТ-системах, определить наиболее нагруженные периоды и категории пользователей, а также представить результаты в форме интерактивного аналитического инструмента.
             </div>
             <div class="project-description" style="margin-top: 10px;">
-                <strong>Действия:</strong> Проведён анализ логов системы за 7 дней. Выявлены паттерны использования, построены дашборды для мониторинга ключевых метрик, сегментированы пользователи по ролям и подразделениям.
+                <strong>Инструменты:</strong> Python, Pandas, HTML, CSS, JavaScript, Plotly.js.
+            </div>
+            <div class="project-description" style="margin-top: 10px;">
+                <strong>Что сделано:</strong> подготовлена и агрегирована событийная выборка; рассчитаны ключевые показатели активности; выполнена сегментация по пользователям, должностям, подразделениям и бизнес-единицам; выявлены пики активности и распределение нагрузки; создан интерактивный веб-дашборд; добавлены фильтры и визуальные элементы для самостоятельного исследования данных.
+            </div>
+            <div class="project-description" style="margin-top: 10px;">
+                <strong>Методы анализа:</strong> группировка и агрегация, анализ временной динамики, сравнение категорий, расчёт долей, ранжирование, выявление пиков активности.
             </div>
             <div class="project-results">
-                <strong>✅ Результат:</strong> Построена модель «AS-IS» активности пользователей. Выявлены топ-приложения и пиковые часы нагрузки. Данные легли в основу оптимизации интерфейсов и планирования технических работ.
+                <strong>✅ Результат проекта:</strong> интерактивный дашборд, позволяющий исследовать активность ИТ-систем по временным периодам, категориям пользователей, должностям, подразделениям и бизнес-единицам.
+            </div>
+            <div class="project-results" style="margin-top: 10px; border-left-color: #28a745; background: #f0fff4;">
+                <strong>📋 Данные представлены в обезличенном виде для демонстрации подхода к анализу и визуализации.</strong> Исходные идентификаторы и организационные названия заменены на обобщённые обозначения.
             </div>
         </div>
 
@@ -521,12 +846,12 @@
                 <div class="value" id="metricEvents">45 961</div>
             </div>
             <div class="metric-card">
-                <div class="label">🏢 Подразделений</div>
-                <div class="value" id="metricUnits">50+</div>
+                <div class="label">🏢 Бизнес-контуров</div>
+                <div class="value" id="metricUnits">10</div>
             </div>
             <div class="metric-card">
                 <div class="label">📱 Приложений</div>
-                <div class="value" id="metricApps">40+</div>
+                <div class="value" id="metricApps">10</div>
             </div>
             <div class="metric-card">
                 <div class="label">👥 Пользователей</div>
@@ -549,15 +874,15 @@
             </div>
 
             <!-- 2. Топ приложений -->
-            <div class="chart-card">
+            <div class="chart-card rankings-card">
                 <h3>🏆 Топ-10 приложений</h3>
-                <div class="chart-container" id="chartApps"></div>
+                <div class="chart-container rankings-chart" id="chartApps"></div>
             </div>
 
             <!-- 3. Распределение по кластерам -->
-            <div class="chart-card">
+            <div class="chart-card clusters-card">
                 <h3>👥 Группы пользователей</h3>
-                <div class="chart-container" id="chartClusters"></div>
+                <div class="chart-container clusters-chart" id="chartClusters"></div>
             </div>
 
             <!-- 4. Тепловая карта -->
@@ -567,15 +892,15 @@
             </div>
 
             <!-- 5. Детализация по должностям -->
-            <div class="chart-card">
+            <div class="chart-card rankings-card">
                 <h3>💼 Топ-10 должностей</h3>
-                <div class="chart-container" id="chartPositions"></div>
+                <div class="chart-container rankings-chart" id="chartPositions"></div>
             </div>
 
-            <!-- 6. Детализация по подразделениям -->
-            <div class="chart-card">
-                <h3>🏢 Топ-10 подразделений</h3>
-                <div class="chart-container" id="chartUnits"></div>
+            <!-- 6. Детализация по бизнес-контурам -->
+            <div class="chart-card rankings-card">
+                <h3>🏢 Топ-10 бизнес-контуров</h3>
+                <div class="chart-container rankings-chart" id="chartUnits"></div>
             </div>
 
             <!-- 7. Тренд по кластерам -->
@@ -598,15 +923,15 @@
             <div class="insights-grid">
                 <div class="insight-item">
                     <strong>⚡ Пик активности</strong>
-                    <span>Четверг — самый загруженный день (11 485 событий)</span>
+                    <span>Четверг – самый загруженный день (11 485 событий)</span>
                 </div>
                 <div class="insight-item">
-                    <strong>📱 Лидеры</strong>
-                    <span>«Заработная плата», «Мои отпуска», «Мой стаж» — топ-3 приложения</span>
+                    <strong>📱 Лидеры приложений</strong>
+                    <span>«Заработная плата», «Мои отпуска», «Мой стаж» – топ-3 по событиям</span>
                 </div>
                 <div class="insight-item">
                     <strong>👥 Сегментация</strong>
-                    <span>70% событий от «Не руководителей», 20% — «Руководители»</span>
+                    <span>70% событий от «Не руководителей», 20% – «Руководители»</span>
                 </div>
                 <div class="insight-item">
                     <strong>📊 Объём</strong>
@@ -617,20 +942,19 @@
                     <span>Наибольшая активность: 10:00–12:00 и 15:00–17:00</span>
                 </div>
                 <div class="insight-item">
-                    <strong>🏢 Лидеры по БЕ</strong>
-                    <span>ЗФ ПАО ГМК НН — 11 587 событий (25% от общего объёма)</span>
+                    <strong>🏢 Лидер по БЕ</strong>
+                    <span>Бизнес-единица A – Производство – 11 587 событий (25% от общего объёма)</span>
                 </div>
             </div>
-        </div>
-
-    </main>
+</div>
+        </main>
 
     <!-- ===== FOOTER ===== -->
     <footer class="footer">
         <div class="container">
-            <p>© 2025 · Аналитика IT-систем · Данные анонимизированы</p>
+            <p>© 2025 · Аналитика IT-систем · Идентификаторы заменены на обобщённые обозначения</p>
             <div class="tech-stack">
-                🛠️ HTML + CSS + Plotly.js · Адаптивный дизайн · Интерактивные графики
+                🛠️ Python · Pandas · HTML · CSS · JavaScript · Plotly.js
             </div>
         </div>
     </footer>
@@ -685,17 +1009,17 @@
 
         // 1.5. Должности
         const positionData = {
-            labels: ['Главный специалист', 'Ведущий специалист', 'Главный менеджер', 'Начальник отдела',
-                'Специалист 1 кат.', 'Начальник участка', 'Менеджер', 'Инженер 1 кат.', 'Ведущий инженер'
+            labels: ['Системный специалист', 'Специалист поддержки', 'Аналитик', 'Инженер инфраструктуры',
+                'Руководитель направления', 'Администратор систем', 'Координатор процессов', 'Пользователь прикладных систем', 'Технический специалист'
             ],
             values: [5591, 3724, 2028, 1534, 1409, 1314, 978, 867, 861]
         };
 
         // 1.6. Подразделения
         const unitData = {
-            labels: ['ЗФ ПАО ГМК НН', 'ООО "Норникель Спутник"', 'АО "Кольская ГМК"',
-                'ООО "Норильскникельремонт"', 'АО "НТЭК"', 'ООО "ГРК "Быстринское"',
-                'ПАО "ГМК "НН"', 'ООО "Институт Гипроникель"', 'ООО "ЗСК"', 'АО "Норильскгазпром"'
+            labels: ['Производственный контур', 'Финансовый контур', 'Корпоративные сервисы',
+                'ИТ-инфраструктура', 'Центр эксплуатации', 'Управление проектами',
+                'Служба поддержки', 'Коммерческий контур', 'Логистический контур', 'Административный контур'
             ],
             values: [11587, 5384, 5224, 5090, 2008, 1746, 1348, 1133, 1133, 1071]
         };
@@ -724,21 +1048,49 @@
         };
 
         // ============================================================
-        // 2. ФУНКЦИИ ДЛЯ ГРАФИКОВ
+        // 2. ПЛОТЛИ-ТЕМА
         // ============================================================
 
+        function getPlotlyThemeLayout() {
+            var theme = document.documentElement.dataset.theme;
+            if (theme === 'dark') {
+                return {
+                    paper_bgcolor: '#1e1e1e',
+                    plot_bgcolor: '#1e1e1e',
+                    font: { color: '#c8d6e5' },
+                    xaxis: { color: '#c8d6e5', gridcolor: '#3d3d3d', zerolinecolor: '#3d3d3d' },
+                    yaxis: { color: '#c8d6e5', gridcolor: '#3d3d3d', zerolinecolor: '#3d3d3d' },
+                    legend: { font: { color: '#c8d6e5' } },
+                    hoverlabel: { bgcolor: '#ffffff', bordercolor: '#5b7a9a', font: { color: '#1a2332' } }
+                };
+            }
+            return {
+                paper_bgcolor: 'rgba(0,0,0,0)',
+                plot_bgcolor: 'rgba(0,0,0,0)',
+                font: { color: '#1a2332' },
+                xaxis: { color: '#1a2332', gridcolor: '#e9ecef', zerolinecolor: '#e9ecef' },
+                yaxis: { color: '#1a2332', gridcolor: '#e9ecef', zerolinecolor: '#e9ecef' },
+                legend: { font: { color: '#1a2332' } },
+                hoverlabel: { bgcolor: '#ffffff', bordercolor: '#5b7a9a', font: { color: '#1a2332' } }
+            };
+        }
+
+        // ============================================================
+        // 3. ФУНКЦИИ ДЛЯ ГРАФИКОВ
+        // ============================================================
+
+        var chartIds = ['chartDaily','chartApps','chartClusters','chartHeatmap','chartPositions','chartUnits','chartTrend','chartHourly'];
+
         function createChart(containerId, config) {
-            const container = document.getElementById(containerId);
+            var container = document.getElementById(containerId);
             if (!container) return;
 
             // Очищаем
             container.innerHTML = '';
 
-            // Настраиваем layout
-            const layout = {
-                font: { family: '-apple-system, BlinkMacSystemFont, sans-serif', color: '#1a2332', size: 12 },
-                paper_bgcolor: 'rgba(0,0,0,0)',
-                plot_bgcolor: 'rgba(0,0,0,0)',
+            // Базовый layout
+            var baseLayout = {
+                font: { family: '-apple-system, BlinkMacSystemFont, sans-serif', size: 13 },
                 margin: { l: 50, r: 16, t: 30, b: 40 },
                 showlegend: true,
                 legend: {
@@ -749,8 +1101,17 @@
                     font: { size: 11 }
                 },
                 hovermode: 'x unified',
-                ...config.layout
+                hoverlabel: { font: { size: 13 } }
             };
+
+            // Тема
+            var themeLayout = getPlotlyThemeLayout();
+
+            // Объединяем: base → theme → config.layout
+            var layout = Object.assign({}, baseLayout, themeLayout, config.layout);
+
+            // font: объединяем family/size из base, color из theme
+            layout.font = Object.assign({}, baseLayout.font, themeLayout.font);
 
             Plotly.newPlot(containerId, config.data, layout, {
                 responsive: true,
@@ -758,6 +1119,33 @@
                 displaylogo: false,
                 modeBarButtonsToRemove: ['toImage', 'sendDataToCloud']
             });
+        }
+
+        function updateChartsTheme() {
+            var themeLayout = getPlotlyThemeLayout();
+            var fontUpdates = {
+                'font.color': themeLayout.font.color,
+                'legend.font.color': themeLayout.legend.font.color
+            };
+            var layoutUpdates = {
+                'paper_bgcolor': themeLayout.paper_bgcolor,
+                'plot_bgcolor': themeLayout.plot_bgcolor,
+                'xaxis.color': themeLayout.xaxis.color,
+                'xaxis.gridcolor': themeLayout.xaxis.gridcolor,
+                'xaxis.zerolinecolor': themeLayout.xaxis.zerolinecolor,
+                'yaxis.color': themeLayout.yaxis.color,
+                'yaxis.gridcolor': themeLayout.yaxis.gridcolor,
+                'yaxis.zerolinecolor': themeLayout.yaxis.zerolinecolor,
+                'hoverlabel.bgcolor': themeLayout.hoverlabel.bgcolor,
+                'hoverlabel.bordercolor': themeLayout.hoverlabel.bordercolor,
+                'hoverlabel.font.color': themeLayout.hoverlabel.font.color
+            };
+            for (var i = 0; i < chartIds.length; i++) {
+                var id = chartIds[i];
+                if (document.getElementById(id) && Plotly) {
+                    Plotly.relayout(id, Object.assign({}, layoutUpdates, fontUpdates));
+                }
+            }
         }
 
         // ============================================================
@@ -813,31 +1201,67 @@
                     },
                     text: appData.values,
                     textposition: 'outside',
+                    textfont: { size: 11 },
+                    cliponaxis: false,
                     hovertemplate: '%{y}: %{x} событий<extra></extra>'
                 }],
                 layout: {
-                    xaxis: { title: 'Количество событий', gridcolor: '#e9ecef' },
-                    yaxis: { title: '', autorange: 'reversed', gridcolor: '#e9ecef' },
-                    margin: { l: 110, r: 50, t: 10, b: 30 }
+                    xaxis: { title: null, gridcolor: '#e9ecef', automargin: true, tickfont: { size: 11 }, zeroline: false, rangemode: 'tozero' },
+                    yaxis: { title: null, autorange: 'reversed', gridcolor: '#e9ecef', automargin: true, tickfont: { size: 12 } },
+                    margin: { l: 165, r: 85, t: 20, b: 45 },
+                    bargap: 0.28,
+                    hoverlabel: { font: { size: 13 } },
+                    showlegend: false
                 }
             });
 
             // 3.3. Кластеры
+            // Расчёт долей для hover
+            const clusterTotal = clusterData.values.reduce((a, b) => a + b, 0);
+            const clusterPercents = clusterData.values.map(v => (v / clusterTotal * 100).toFixed(1));
+
             createChart('chartClusters', {
                 data: [{
-                    type: 'pie',
-                    labels: clusterData.labels,
-                    values: clusterData.values,
-                    hole: 0.4,
-                    textinfo: 'label+percent',
-                    textposition: 'inside',
+                    type: 'bar',
+                    x: clusterData.values,
+                    y: clusterData.labels,
+                    orientation: 'h',
                     marker: {
-                        colors: ['#2c3e50', '#5b7a9a', '#a8c4d6']
+                        color: ['#2c3e50', '#5b7a9a', '#a8c4d6']
                     },
-                    hovertemplate: '%{label}: %{value} событий (%{percent})<extra></extra>'
+                    text: clusterData.values.map(v => v.toLocaleString()),
+                    textposition: 'outside',
+                    textfont: { size: 12, color: '#1a2332' },
+                    cliponaxis: false,
+                    customdata: clusterPercents,
+                    hovertemplate: '<b>%{y}</b><br>Пользователей: %{x:,.0f}<br>Доля: %{customdata}%<extra></extra>'
                 }],
                 layout: {
-                    margin: { l: 10, r: 10, t: 10, b: 10 }
+                    margin: { l: 150, r: 90, t: 50, b: 45 },
+                    showlegend: false,
+                    bargap: 0.32,
+                    hoverlabel: {
+                        bgcolor: '#ffffff',
+                        bordercolor: '#5b7a9a',
+                        font: {
+                            color: '#1a2332',
+                            size: 13
+                        },
+                        align: 'left'
+                    },
+                    xaxis: {
+                        title: null,
+                        automargin: true,
+                        rangemode: 'tozero',
+                        zeroline: false,
+                        tickfont: { size: 11 }
+                    },
+                    yaxis: {
+                        title: null,
+                        automargin: true,
+                        autorange: 'reversed',
+                        tickfont: { size: 12 }
+                    }
                 }
             });
 
@@ -854,7 +1278,7 @@
                         [1, '#2c3e50']
                     ],
                     showscale: true,
-                    hovertemplate: '%{y}, %{x}:00 — %{z} событий<extra></extra>'
+                    hovertemplate: '%{y}, %{x}:00 – %{z} событий<extra></extra>'
                 }],
                 layout: {
                     xaxis: { title: 'Час дня', gridcolor: '#e9ecef', tickangle: -45 },
@@ -881,16 +1305,21 @@
                     },
                     text: positionData.values,
                     textposition: 'outside',
+                    textfont: { size: 11 },
+                    cliponaxis: false,
                     hovertemplate: '%{y}: %{x} событий<extra></extra>'
                 }],
                 layout: {
-                    xaxis: { title: 'Количество событий', gridcolor: '#e9ecef' },
-                    yaxis: { title: '', autorange: 'reversed', gridcolor: '#e9ecef' },
-                    margin: { l: 130, r: 50, t: 10, b: 30 }
+                    xaxis: { title: null, gridcolor: '#e9ecef', automargin: true, tickfont: { size: 11 }, zeroline: false, rangemode: 'tozero' },
+                    yaxis: { title: null, autorange: 'reversed', gridcolor: '#e9ecef', automargin: true, tickfont: { size: 12 } },
+                    margin: { l: 205, r: 85, t: 20, b: 45 },
+                    bargap: 0.28,
+                    hoverlabel: { font: { size: 13 } },
+                    showlegend: false
                 }
             });
 
-            // 3.6. Подразделения
+            // 3.6. Бизнес-контуры
             createChart('chartUnits', {
                 data: [{
                     type: 'bar',
@@ -907,12 +1336,17 @@
                     },
                     text: unitData.values,
                     textposition: 'outside',
+                    textfont: { size: 11 },
+                    cliponaxis: false,
                     hovertemplate: '%{y}: %{x} событий<extra></extra>'
                 }],
                 layout: {
-                    xaxis: { title: 'Количество событий', gridcolor: '#e9ecef' },
-                    yaxis: { title: '', autorange: 'reversed', gridcolor: '#e9ecef' },
-                    margin: { l: 170, r: 50, t: 10, b: 30 }
+                    xaxis: { title: null, gridcolor: '#e9ecef', automargin: true, tickfont: { size: 11 }, zeroline: false, rangemode: 'tozero' },
+                    yaxis: { title: null, autorange: 'reversed', gridcolor: '#e9ecef', automargin: true, tickfont: { size: 12 } },
+                    margin: { l: 215, r: 85, t: 20, b: 45 },
+                    bargap: 0.28,
+                    hoverlabel: { font: { size: 13 } },
+                    showlegend: false
                 }
             });
 
@@ -968,7 +1402,7 @@
                         ],
                         showscale: false
                     },
-                    hovertemplate: '%{x}:00 — %{y} событий<extra></extra>'
+                    hovertemplate: '%{x}:00 – %{y} событий<extra></extra>'
                 }],
                 layout: {
                     xaxis: { title: 'Час дня', gridcolor: '#e9ecef', tickangle: -45 },
@@ -989,8 +1423,8 @@
 
             currentFilters = { app, cluster, unit };
 
-            // Показываем уведомление
-            const btn = document.querySelector('.filters-bar button');
+            // Показываем уведомление на кнопке «Применить»
+            const btn = document.getElementById('btnApply');
             const originalText = btn.textContent;
             btn.textContent = '✅ Применено!';
             btn.style.background = '#28a745';
@@ -999,42 +1433,115 @@
                 btn.style.background = '#4a90d9';
             }, 1500);
 
-            // Здесь можно добавить логику пересчёта данных
-            // Пока просто перерисовываем графики с новыми данными
+            // Перерисовываем графики (данные агрегированы, фильтрация демонстрационная)
             renderAllCharts();
 
             // Обновляем метрики в зависимости от фильтров
             updateMetrics(app, cluster, unit);
         }
 
+        function resetFilters() {
+            document.getElementById('filterApp').value = 'all';
+            document.getElementById('filterCluster').value = 'all';
+            document.getElementById('filterUnit').value = 'all';
+            currentFilters = { app: 'all', cluster: 'all', unit: 'all' };
+            renderAllCharts();
+            updateMetrics('all', 'all', 'all');
+
+            const btn = document.getElementById('btnApply');
+            btn.textContent = 'Применить';
+            btn.style.background = '#4a90d9';
+        }
+
         function updateMetrics(app, cluster, unit) {
             // Простая демонстрация обновления метрик
+            // Данные в проекте представлены агрегатами, без построчной детализации по комбинациям фильтров.
+            // Реальная кросс-фильтрация требует исходного событийного набора.
             let events = 45961;
             let users = 20418;
 
+            // Маппинг технических значений на читаемые для коэффициентов
+            const appLabelMap = {
+                'payroll': 'Заработная плата',
+                'vacations': 'Мои отпуска',
+                'seniority': 'Мой стаж',
+                'documents': 'Мои документы',
+                'ipr': 'ИПР',
+                'sanatorium': 'Санаторно-курортное',
+                'kpi_cards': 'Карты КПЭ',
+                'org_structure': 'Орг. структура',
+                'trips': 'Командировки',
+                'insurance': 'Страхование'
+            };
+
+            const clusterLabelMap = {
+                'non_managers': 'Не руководители',
+                'managers': 'Руководители',
+                'lkr': 'ЛКР'
+            };
+
+            const unitLabelMap = {
+                'production': 'Производственный контур',
+                'finance': 'Финансовый контур',
+                'corporate_services': 'Корпоративные сервисы',
+                'it_infrastructure': 'ИТ-инфраструктура',
+                'operations': 'Центр эксплуатации',
+                'projects': 'Управление проектами',
+                'support': 'Служба поддержки',
+                'commercial': 'Коммерческий контур',
+                'logistics': 'Логистический контур',
+                'admin': 'Административный контур'
+            };
+
             if (app !== 'all') {
-                // Имитация фильтрации
+                const appLabel = appLabelMap[app] || app;
                 const appMultipliers = {
                     'Заработная плата': 0.28,
                     'Мои отпуска': 0.12,
                     'Мой стаж': 0.09,
+                    'Мои документы': 0.08,
                     'ИПР': 0.05,
-                    'Командировки': 0.03
+                    'Санаторно-курортное': 0.05,
+                    'Карты КПЭ': 0.04,
+                    'Орг. структура': 0.04,
+                    'Командировки': 0.03,
+                    'Страхование': 0.02
                 };
-                const mul = appMultipliers[app] || 1;
+                const mul = appMultipliers[appLabel] || 1;
                 events = Math.round(events * mul);
                 users = Math.round(users * (mul * 1.2));
             }
 
             if (cluster !== 'all') {
+                const clusterLabel = clusterLabelMap[cluster] || cluster;
                 const clusterMultipliers = {
                     'Не руководители': 0.84,
                     'Руководители': 0.14,
                     'ЛКР': 0.02
                 };
-                const mul = clusterMultipliers[cluster] || 1;
+                const mul = clusterMultipliers[clusterLabel] || 1;
                 events = Math.round(events * mul);
                 users = Math.round(users * (mul * 1.1));
+            }
+
+            if (unit !== 'all') {
+                const unitLabel = unitLabelMap[unit] || unit;
+                // Демонстрационные коэффициенты для бизнес-контуров (сумма ~1.0 при взвешенных значениях)
+                const unitMultipliers = {
+                    'Производственный контур': 0.25,
+                    'Финансовый контур': 0.12,
+                    'Корпоративные сервисы': 0.11,
+                    'ИТ-инфраструктура': 0.11,
+                    'Центр эксплуатации': 0.04,
+                    'Управление проектами': 0.04,
+                    'Служба поддержки': 0.03,
+                    'Коммерческий контур': 0.025,
+                    'Логистический контур': 0.025,
+                    'Административный контур': 0.023
+                };
+                const mul = unitMultipliers[unitLabel] || 1;
+                events = Math.round(events * mul);
+                users = Math.round(users * (mul * 1.15));
             }
 
             document.getElementById('metricEvents').textContent = events.toLocaleString();
@@ -1042,16 +1549,46 @@
         }
 
         // ============================================================
-        // 5. ИНИЦИАЛИЗАЦИЯ
+        // 5. ПЕРЕКЛЮЧЕНИЕ ТЕМЫ
         // ============================================================
+
+        function applyTheme(theme) {
+            document.documentElement.dataset.theme = theme;
+            var btn = document.getElementById('themeToggle');
+            if (!btn) return;
+            if (theme === 'dark') {
+                btn.textContent = '\u2600\uFE0F';
+                btn.setAttribute('aria-label', 'Переключить на светлую тему');
+                btn.setAttribute('title', 'Переключить на светлую тему');
+            } else {
+                btn.textContent = '\uD83C\uDF19';
+                btn.setAttribute('aria-label', 'Переключить на тёмную тему');
+                btn.setAttribute('title', 'Переключить на тёмную тему');
+            }
+        }
+
+        function getInitialTheme() {
+            var saved;
+            try { saved = localStorage.getItem('portfolio-theme'); } catch (e) { saved = null; }
+            if (saved === 'light' || saved === 'dark') return saved;
+            return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+
+        (function() {
+            var initial = getInitialTheme();
+            document.documentElement.dataset.theme = initial;
+            var btn = document.getElementById('themeToggle');
+            if (btn) {
+                if (initial === 'dark') {
+                    btn.textContent = '\u2600\uFE0F';
+                    btn.setAttribute('aria-label', 'Переключить на светлую тему');
+                    btn.setAttribute('title', 'Переключить на светлую тему');
+                }
+            }
+        })();
 
         document.addEventListener('DOMContentLoaded', function() {
             renderAllCharts();
-
-            // Обработчики для фильтров
-            document.querySelectorAll('.filters-bar select').forEach(select => {
-                select.addEventListener('change', applyFilters);
-            });
 
             // Enter для применения фильтров
             document.querySelector('.filters-bar').addEventListener('keydown', function(e) {
@@ -1060,9 +1597,21 @@
                 }
             });
 
+            // Переключение темы
+            var themeBtn = document.getElementById('themeToggle');
+            if (themeBtn) {
+                themeBtn.addEventListener('click', function() {
+                    var current = document.documentElement.dataset.theme;
+                    var next = current === 'dark' ? 'light' : 'dark';
+                    applyTheme(next);
+                    updateChartsTheme();
+                    try { localStorage.setItem('portfolio-theme', next); } catch (e) { /* noop */ }
+                });
+            }
+
             console.log('✅ Дашборд загружен!');
-            console.log('📊 Данные анонимизированы. Всего графиков: 8');
-            console.log('🔍 Используйте фильтры для детализации данных');
+            console.log('📊 Идентификаторы заменены на обобщённые обозначения. Всего графиков: 8');
+            console.log('🔍 Фильтры: демонстрационный режим — выберите параметры и нажмите «Применить»');
         });
 
         // Перерисовка при изменении размера окна
